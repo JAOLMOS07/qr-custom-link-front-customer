@@ -5,7 +5,7 @@
   display: inline-block;
   position: relative;
   border: 2px solid; /* Reduzca el grosor del borde del spinner */
-  border-color: #FF3D00 #FF3D00 transparent;
+  border-color: #000000 #000000 transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
