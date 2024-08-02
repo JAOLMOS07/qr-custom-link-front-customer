@@ -1,0 +1,32 @@
+<div class="language-selector">
+  <img
+    ngSrc="assets/language_icon.svg"
+    (click)="toggleDropdown()"
+    alt="Language Selector"
+    class="language-icon"
+    height="24"
+    width="24"
+  />
+  @if (dropdownOpen) {
+  <div class="language-dropdown">
+    <ul>
+      @for (lang of languageService.getAvailableLanguages(); track lang) {
+      <li (click)="selectLanguage(lang)">
+        <span [class.selected]="lang.code === selectedLanguage">{{
+          lang.label
+        }}</span>
+        @if (lang.code === selectedLanguage){
+        <img
+          ngSrc="assets/check.svg"
+          alt="check"
+          class="checkmark"
+          height="24"
+          width="24"
+        />
+        }
+      </li>
+      }
+    </ul>
+  </div>
+  }
+</div>

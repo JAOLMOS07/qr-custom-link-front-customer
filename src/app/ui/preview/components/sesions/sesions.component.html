@@ -1,0 +1,18 @@
+<div class="container-accordion">
+    <div>
+        <mat-accordion multi>
+            <mat-expansion-panel class="mt-2" *ngFor="let element of datas;let i = index">
+                <mat-expansion-panel-header class="mt-2">
+                    <mat-panel-title>
+                        <div class="col-12" style="text-align: center;">
+                            {{element['label']}}
+                        </div>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div [innerHTML]="element['data']"></div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+
+<!-- {{datas | json}} -->

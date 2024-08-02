@@ -1,0 +1,24 @@
+<div class="custom-input-container textDiv">
+  <input
+    #inputSelect
+    class="form-control rounded-pill custom-input"
+    [formControl]="formControl"
+    [placeholder]="placeholder"
+    matInput
+    (focusout)="onFocusOut()"
+    [matAutocomplete]="auto"
+  />
+  <mat-autocomplete
+    (optionSelected)="select($event)"
+    autoActiveFirstOption
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+  >
+    <mat-option [value]="'option'">{{
+      "UNLINK_CONTENT" | translate
+    }}</mat-option>
+    @for (option of filteredOptions | async; track option.id) {
+    <mat-option [value]="option">{{ option.value }}</mat-option>
+    }
+  </mat-autocomplete>
+</div>

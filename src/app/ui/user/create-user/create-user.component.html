@@ -1,0 +1,95 @@
+<ftx-layout-page [title]="'USERS' | translate">
+  <div class="container-fluid">
+    <div class="col-10 mx-auto mt-4">
+      <ftx-card>
+        <div card-header class="row align-items-center">
+          <div
+            class="text-muted col-12 d-flex justify-content-center align-items-center"
+          >
+            <h3>
+              <ftx-icon [icon]="'create'" />{{ "CREATE_USERS" | translate }}
+            </h3>
+          </div>
+        </div>
+        <div card-content>
+          <form class="row">
+            <div style="width: 100% !important">
+              <div class="col-md-10 mx-auto col-sm-10">
+                <div class="row mt-2 text-center">
+                  <div class="col-lg-6 col-12 mb-3">
+                    <ftx-input
+                      [formGroup]="userForm"
+                      [controlName]="'Name'"
+                      [label]="'NAME' | translate"
+                      [placeholder]="'USER_NAME' | translate"
+                    />
+                  </div>
+                  <div class="col-lg-6 col-12 mb-3">
+                    <ftx-input
+                      [formGroup]="userForm"
+                      [controlName]="'Surname'"
+                      [label]="'SURNAME' | translate"
+                      [placeholder]="'USER_SURNAME' | translate"
+                    />
+                  </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <ftx-select
+                      [formGroup]="userForm"
+                      [controlName]="'IdentityDocumentType'"
+                      [label]="'DOCUMENT_TYPE' | translate"
+                      [elements]="tipoNitsFormated"
+                    />
+                  </div>
+
+                  <div class="col-lg-6 col-sm-12">
+                    <ftx-input
+                      [type]="'number'"
+                      [formGroup]="userForm"
+                      [controlName]="'Document'"
+                      [label]="'DOCUMENT_NUMBER' | translate"
+                      [placeholder]="'DOCUMENT_NUMBER' | translate"
+                    />
+                  </div>
+                  <div class="col-12 my-3">
+                    <ftx-input
+                      [formGroup]="userForm"
+                      [controlName]="'Email'"
+                      [label]="'EMAIL' | translate"
+                      [placeholder]="'EMAIL' | translate"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="row mt-3 mb-3 d-flex align-items-center justify-content-center"
+                >
+                  <div class="col-6 text-center">
+                    <ftx-button
+                      [buttonType]="'secondary'"
+                      [content]="'CANCEL' | translate"
+                      [routerLink]="['/principal/users/user']"
+                      [icon]="'backspace'"
+                    />
+                  </div>
+                  @if(!isLoading){
+                  <div class="col-6 text-center">
+                    <ftx-button
+                      [content]="'SAVE' | translate"
+                      (eventClick)="save()"
+                      [buttonType]="'danger'"
+                      [disabled]="!userForm.valid"
+                      [icon]="'save'"
+                    />
+                  </div>
+                  }@else{
+                  <app-ftx-spinner></app-ftx-spinner>
+                  }
+                </div>
+              </div>
+            </div>
+          </form>
+          <ftx-divider></ftx-divider>
+        </div>
+      </ftx-card>
+    </div>
+  </div>
+</ftx-layout-page>

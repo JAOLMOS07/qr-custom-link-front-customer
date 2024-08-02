@@ -1,0 +1,150 @@
+
+.name{
+  overflow: hidden;
+  font-size: medium;
+  text-overflow: ellipsis;
+  color:#4d525b;
+  font-weight: bold;
+}
+.app-sidenav-content {
+  /* display: flex; */
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  width: 99%;
+  padding: 20px;
+}
+.app-sidenav {
+   user-select: none;
+   background-color: rgba(57,62,69,1);
+
+   border-radius: 0  20px 20px 0;
+}
+@media (min-width: 768px) {
+  .container-fluid{
+    padding: 0%;
+  }
+}
+.is-active{
+  background-color: rgb(45, 47, 51);
+}
+.example-container {
+
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+
+
+.mat-toolbar-row{
+  padding: 0px;
+}
+
+.headerTool{
+  height: 100%;
+  width: 100%
+}
+
+.rounded-circle{
+  width: 52px;
+  height: 52px
+}
+
+.rounded-circle-div{
+
+  width: 15px;
+  height: 15px;
+}
+
+.img-menu{
+  width: 34px;
+  height: 34px;
+}
+
+.footer{
+  border-top: medium solid rgba(184, 184, 184, 0.309);
+  position: fixed;
+  bottom: 0;
+
+  background: #ffffff;
+  width: 100%;
+  left: 0;
+}
+.name-menu{
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.mat-toolbar{
+  height: auto;
+}
+.profile_icon{
+  cursor: pointer;
+}
+
+
+.icon_logo{
+  width: 70px !important;
+}
+
+.w-100{
+ width: 100%;
+}
+
+
+.rounded-circle{
+  height: 40px;
+  width: 40px;
+}
+.small-icon-button {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 0px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  & > *[role=img] {
+     width: 21px;
+     height: 21px;
+     font-size: 21px;
+
+     svg {
+        width: 21px;
+        height: 21px;
+     }
+  }
+
+  .mat-mdc-button-touch-target {
+     width: 24px !important;
+     height: 24px !important;
+  }
+}
+::ng-deep .mat-menu-content{
+
+  overflow: scroll;
+}

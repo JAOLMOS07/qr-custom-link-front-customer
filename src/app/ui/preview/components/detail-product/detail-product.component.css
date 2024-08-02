@@ -1,0 +1,87 @@
+img {
+    width: 90%;
+    height:70vh;
+
+    object-fit:contain;
+    object-position: center;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+img:hover{
+    opacity: 0.6;
+}
+
+.name-product{
+    text-align: center;
+    color: #07446d;
+    font-size: 12px;
+    margin-top: 20px;
+    font-family: 'Roboto Thin', sans-serif;
+    font-weight: 600;
+}
+
+.subtitle{
+    color: #444;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    white-space: pre-line;
+    font-family: 'Roboto Thin', sans-serif;
+}
+
+p{
+    margin: 0 0 15px;
+    text-align: left;
+}
+
+.dropdown{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .icon-dropdown{
+        width: 32px;
+        height: 32px;
+    }
+
+}
+
+.dropdown-active{
+    li {
+        margin-top: 4px;
+    }
+}
+
+.shareIcon{
+    height: 32px;
+    width: 32px;
+
+}
+
+.image-container {
+    object-fit: cover; /* Optional: Preserve aspect ratio and cover the entire container */
+    height: 100%;
+}
+
+::ng-deep .mat-expansion-panel-header .mat-expansion-indicator {
+    display: none;
+  }
+
+::ng-deep   mat-expansion-panel {
+    border: .5px solid #878787;
+}
+

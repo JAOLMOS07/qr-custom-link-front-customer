@@ -1,0 +1,23 @@
+@if(!isLoading && !isLoadingContent){ @if(!links || links.length === 0){
+<ftx-empty></ftx-empty>
+}@else{
+<div class="container-fluid">
+  <div class="col-12 mx-auto mt-4">
+    <ul class="list-group">
+      @for (link of links; track link.id) {
+      <app-link-item [link]="link" [contents]="contents" />
+      }
+    </ul>
+  </div>
+</div>
+
+<ftx-paginator
+  [length]="totalItems"
+  [pageSize]="itemsPerPage"
+  [pageIndex]="currentPage - 1"
+  [pageSizeOptions]="[5, 10, 15]"
+  (page)="onPageChange($event)"
+></ftx-paginator
+>} }@else {
+<app-ftx-spinner />
+}

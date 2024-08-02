@@ -1,0 +1,115 @@
+<div class="container-fluid">
+  <mat-toolbar>
+    <div class="col-12 shadow-sm">
+      <div class="row">
+        <div class="d-flex col-9 col-sm-8">
+          <div class="d-flex align-items-center justify-content-center">
+            <button
+              mat-icon-button
+              class="example-icon"
+              aria-label="Example icon-button with menu icon"
+              (click)="isExpanded = !isExpanded"
+            >
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div
+          class="row col-3 col-sm-4 d-flex justify-content-center align-items-center"
+        >
+          <p
+            class="name d-none font-weight-bold d-md-block text-end my-auto col-8 col-lg-9"
+          >
+            {{ user | uppercase }}
+          </p>
+
+          <div class="flex col-1">
+            <app-language-selector
+              class="language-selector"
+            ></app-language-selector>
+          </div>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item [matMenuTriggerFor]="options_user">
+              <mat-icon>supervisor_account</mat-icon>
+              {{ user }}
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>first_page</mat-icon>
+              {{ "LOGOUT" | translate }}
+            </button>
+          </mat-menu>
+
+          <mat-menu #options_user="matMenu">
+            <button mat-menu-item (click)="changePassword()">
+              <mat-icon>edit</mat-icon>
+              {{ "CHANGE_PASSWORD" | translate }}
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container
+    class="example-container"
+    autosize
+    [hasBackdrop]="true"
+  >
+    @if(showSidebar){
+    <mat-sidenav
+      #sidenav
+      class="app-sidenav"
+      mode="over"
+      opened="{{ isExpanded }}"
+      [position]="'start'"
+      (closed)="mouseleave()"
+    >
+      <mat-nav-list>
+        <a href=""></a>
+        @for (element of menuItems; track element.id) {
+        <a
+          mat-list-item
+          [routerLink]="element.router"
+          routerLinkActive="is-active"
+          class="mt-3 px-5 py-2"
+          (click)="mouseleave()"
+        >
+          <div>
+            <div style="float: left">
+              <img
+                src="{{ element.icon }}"
+                alt="{{ element.alt }}"
+                class="img-menu"
+              />
+            </div>
+            <div class="name-menu" *ngIf="isExpanded || isShowing">
+              <span style="color: white; font-size: 16px">
+                {{ element.name | translate }}
+              </span>
+            </div>
+          </div>
+        </a>
+        }
+      </mat-nav-list>
+    </mat-sidenav>
+    }
+
+    <div class="app-sidenav-content">
+      <div class="row">
+        <div class="col-12">
+          <ftx-toaster />
+          @if(!isLoading){
+          <router-outlet> </router-outlet>
+          }@else{
+          <app-ftx-spinner />
+          }
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer mt-auto py-2 shadow">
+      <div class="container text-center">
+        <span class="text-muted"> </span>
+      </div>
+    </footer>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row mt-1">
+    <div
+      class="rounded col-3"
+      style="background-image: url({{ urlBackIconImage }})"
+    >
+      <img src="{{ srcIconImage }}" alt="icon_layout" />
+    </div>
+    <div class="col-9 mt-4">
+      <span class="title" style="font-size: 20px; font-weight: bold">{{
+        title
+      }}</span>
+    </div>
+  </div>
+
+  <div class="col-12 mx-auto mt-1"></div>
+  <ng-content></ng-content>
+</div>

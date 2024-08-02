@@ -1,0 +1,51 @@
+@if(!isLoading){ @if(!users || users.length === 0){
+<ftx-empty></ftx-empty>
+}@else{
+<div class="row">
+  @for (user of users; track user.name) {
+  <div class="col-sm-6 col-xl-4 col-12">
+    <ftx-item [Title]="user.name">
+      <ng-container content>
+        <p class="p-item text-muted">
+          <strong>{{ "ROLE" | translate }}:</strong>
+          {{ getTypeUserSpanish(user.rol) }}
+        </p>
+        <p class="p-item text-muted">
+          <strong>{{ "IDENTIFICATION" | translate }}:</strong>
+          {{ user.documentType.code }}
+          {{ user.document }}
+        </p>
+        <p class="p-item text-muted">
+          <strong>Email: </strong> {{ user.email }}
+        </p>
+      </ng-container>
+      <ng-container button>
+        @if(user.rol !== "AdministratorCustomer"){
+
+        <div class="d-flex">
+          <ftx-button
+            [content]="'Eliminar'"
+            [buttonType]="'danger'"
+            [icon]="'delete_forever'"
+            (eventClick)="showModalDelete(user)"
+            [onlyIcon]="true"
+          />
+        </div>
+        }
+      </ng-container>
+    </ftx-item>
+  </div>
+  }
+</div>
+
+<ftx-paginator
+  class="text-muted"
+  [length]="totalItems"
+  [pageSize]="itemsPerPage"
+  [pageIndex]="currentPage - 1"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onPageChange($event)"
+></ftx-paginator
+>} }@else {
+<app-ftx-spinner />
+}

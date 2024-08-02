@@ -1,0 +1,23 @@
+<ftx-layout-page [title]="getTitleTranslate(this.datosEntrada.sku)">
+  <div class="container-fluid">
+    <div class="col-12 col-md-10 mx-auto">
+      <ng-container>
+        <div class="row d-flex justify-content-between">
+          <div class="col-12 col-md-4 mx-md-3">
+            <ftx-input
+              [viewLabel]="false"
+              [placeholder]="'SEARCH' | translate"
+              [formGroup]="formControl"
+              [controlName]="'user'"
+              (searchEvent)="handleSearchEvent($event)"
+            />
+          </div>
+        </div>
+        <div class="row mb-4">
+          <app-links-list [orderId]="this.datosEntrada.id" />
+        </div>
+        <ftx-divider />
+      </ng-container>
+    </div>
+  </div>
+</ftx-layout-page>

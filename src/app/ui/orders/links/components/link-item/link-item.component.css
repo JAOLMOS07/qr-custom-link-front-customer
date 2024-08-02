@@ -1,0 +1,29 @@
+.etiqueta{
+  background-color: rgb(147, 147, 147) ;
+
+  color: white;
+
+  border-radius: 10px;
+}
+
+.mat-chip {
+  background-color: #111111 !important; /* Color de fondo */
+  color: #ffffff !important;
+}
+.mat-chip.mat-chip-selected {
+  color: #ffffff !important;
+}
+.mat-mdc-standard-chip {
+  --mdc-chip-label-text-color: #fff;
+}
+
+.mat-chip-gray {
+  --mdc-chip-label-text-color: #3b3b3b;
+}
+.name{
+  overflow: hidden;
+  font-size: medium;
+  text-overflow: ellipsis;
+  color:#4d525b;
+  font-weight: bold;
+}

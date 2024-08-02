@@ -1,0 +1,48 @@
+@if(!isLoading){ @if(!orders || orders.length === 0){
+<ftx-empty></ftx-empty>
+}@else{
+<div class="row">
+  @for (order of orders; track order.id) {
+  <div class="col-sm-6 col-xl-4 col-12">
+    <ftx-item [Title]="getTitleTranslate(order.productionOrder)">
+      <ng-container content>
+        <p class="p-item text-muted">
+          <strong>{{ "DATE" | translate }}:</strong>
+          {{ order.date | date : "yyyy-MM-dd" }}
+        </p>
+        <p class="p-item text-muted">
+          <strong>{{ "TOTAL_AMOUNT" | translate }}</strong> {{ order.amountQr }}
+        </p>
+        <p class="p-item text-muted">
+          <strong>{{ "AVAILABLE_AMOUNT" | translate }}</strong>
+          {{ order.amountAvailable }}
+        </p>
+      </ng-container>
+      <ng-container footer>
+        <div class="d-flex">
+          <ftx-button
+            [content]="'DELETE' | translate"
+            [buttonType]="'dark'"
+            [icon]="'attachment'"
+            (eventClick)="assign(order)"
+            [onlyIcon]="true"
+          ></ftx-button>
+        </div>
+      </ng-container>
+    </ftx-item>
+  </div>
+  }
+</div>
+
+<ftx-paginator
+  [length]="totalItems"
+  [pageSize]="itemsPerPage"
+  [pageIndex]="currentPage - 1"
+  [pageSizeOptions]="[5, 10, 15]"
+  (page)="onPageChange($event)"
+></ftx-paginator
+>}
+<div class="example-container"></div>
+}@else {
+<app-ftx-spinner />
+}

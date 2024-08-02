@@ -1,0 +1,53 @@
+/* Cambia el color del relleno del SVG a azul */
+.navbar-brand2 .icon-img {
+    fill: blue;
+  }
+  
+  /* Cambia el color de borde del SVG a rojo */
+  .navbar-brand2 .icon-img {
+    stroke: red;
+  }
+  
+  .header {
+    background-color: #e8e8e8;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 100;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .icon-img {
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    object-fit: fill;
+  }
+  
+  .pointer{
+    cursor: pointer;
+  }
+  
+  @media (max-width: 767.98px) {
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 300px) {
+    .icon-img {
+      width: 30px;
+      height: 30px;
+    }
+    
+  }
+  

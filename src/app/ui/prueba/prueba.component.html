@@ -1,0 +1,412 @@
+<ftx-layout-page [title]="'CREATE_CONTENT' | translate">
+  <div class="container" *ngIf="!loading">
+    <div class="row col-md-7 col-sm-7 mx-auto" style="text-align: center">
+      <div
+        style="float: left; margin-top: 10px"
+        class="col-md-12 col-sm-12 mb-3 text-align: center"
+      >
+        <div class="col-12">
+          <div class="row">
+            <div class="row col-12">
+              <div class="col-6">
+                <ftx-icon
+                  (click)="addTab()"
+                  class="ftx-icon text-muted"
+                  style="cursor: pointer"
+                  [icon]="'add_circle'"
+                ></ftx-icon
+                ><span (click)="addTab()" style="cursor: pointer" class="">{{
+                  "ADD_LANGUAGE" | translate
+                }}</span>
+              </div>
+              <div class="col-6 text-muted">
+                <ftx-icon
+                  (click)="visualizar()"
+                  style="cursor: pointer"
+                  [ngClass]="{
+                    'text-muted': !mostrar,
+                    'text-visibility': mostrar
+                  }"
+                  class="ftx-icon"
+                  [icon]="mostrar ? 'visibility' : 'visibility_off'"
+                  [scale]="'scale-1'"
+                ></ftx-icon
+                ><span class="" (click)="visualizar()" style="cursor: pointer">
+                  {{ "PREVIEW" | translate }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-1">
+          <form [formGroup]="formulario">
+            <div class="col-12">
+              <ftx-input
+                [formGroup]="formulario"
+                controlName="tag"
+                [label]="'NAME' | translate"
+                [placeholder]="'NAME' | translate"
+              />
+            </div>
+
+            <mat-tab-group
+              [color]="'warn'"
+              [selectedIndex]="selected.value"
+              (selectedIndexChange)="selected.setValue($event)"
+              class="mt-2"
+            >
+              @for (tab of formTabs.controls; track tab; let index = $index) {
+              <mat-tab [label]="getFormGroup(index).get('nameTab')?.value">
+                <ng-container [formGroup]="getFormGroup(index)">
+                  <div
+                    style="
+                      width: 100%;
+                      height: auto;
+                      background-color: #fafafa;
+                      border: 1px solid #00000035;
+                      border-radius: 4px;
+                    "
+                  >
+                    <div
+                      class="col-sm-12 col-md-12 mx-auto"
+                      style="padding: 10px"
+                    >
+                      <mat-card
+                        style="align-items: center; width: 100%"
+                        class="mt-2"
+                      >
+                        <mat-card-content>
+                          <div class="mx-auto imgPrueba">
+                            <input
+                              type="file"
+                              (change)="onFileSelected($event, index)"
+                              #fileInput
+                              style="display: none"
+                              accept="image/png, image/jpg, image/jpeg, image/webp"
+                            />
+                            <div
+                              class="d-flex justify-content-center align-items-center"
+                              style="height: 50px"
+                              (click)="fileInput.click()"
+                            >
+                              @if (imgLogo ) {
+                              <img
+                                style="object-fit: cover"
+                                [src]="imgLogo"
+                                alt="Foto seleccionada"
+                                alt="selcamera"
+                                width="80px"
+                                *ngIf="imgLogo != null"
+                                height="80px"
+                              />
+                              }@else{
+
+                              <ftx-icon
+                                style="color: #000000"
+                                [scale]="'scale-3'"
+                                [icon]="'camera_enhance'"
+                              />
+                              }
+
+                              <!-- <img src="../../../../../assets/icon_camera.svg" alt="camera" width="64px"
+                                *ngIf="!imgLogo" height="64px" /> -->
+                            </div>
+                          </div>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+
+                    <!-- imagenes -->
+                    <div class="mx-auto" style="padding: 10px">
+                      <mat-accordion class="example-headers-align" multi>
+                        <mat-expansion-panel class="mt-2">
+                          <mat-expansion-panel-header class="mt-2">
+                            <mat-panel-title>
+                              {{ "MULTIMEDIA_CAROUSEL" | translate }}
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+
+                          <div class="mt-3" style="height: auto">
+                            <div>
+                              <div class="containerdfor mb-3" appDnd>
+                                <input
+                                  type="file"
+                                  #fileDropRef
+                                  id="fileDropRef"
+                                  multiple
+                                  accept="image/png, image/jpg, image/jpeg, image/webp"
+                                  (change)="fileBrowseHandler($event)"
+                                />
+                                <mat-icon
+                                  style="transform: scale(3); color: #000000"
+                                  >backup</mat-icon
+                                >
+                                <!-- <img src="../../../assets/icon_upload.png" alt="camera" width="64px" height="64px" /> -->
+                                <h3 style="width: 100%" class="mt-2">
+                                  {{ "DRAG_IMAGES" | translate }}
+                                </h3>
+                                <h3 style="width: 100%">
+                                  {{ "OR" | translate }}
+                                </h3>
+                                <label
+                                  class="mt-2 mat-warn"
+                                  style="
+                                    width: 45%;
+                                    background-color: #000000;
+                                    cursor: pointer;
+                                  "
+                                  >{{ "SELECT_FILE" | translate }}</label
+                                >
+                              </div>
+
+                              <div
+                                class="row mt-4"
+                                *ngIf="imgCarrousel.length > 0"
+                              >
+                                <div
+                                  class="col-12"
+                                  style="text-align: center; height: auto"
+                                >
+                                  <div
+                                    cdkDropList
+                                    cdkDropListOrientation="horizontal"
+                                    class="example-list"
+                                    (cdkDropListDropped)="dropFoto($event)"
+                                  >
+                                    @for (file of files; track file;let i =
+                                    $index) {
+                                    <div class="example-box" cdkDrag>
+                                      <div style="width: 100%; height: 100%">
+                                        <div
+                                          style="
+                                            margin-top: -9px;
+                                            margin-left: 80%;
+                                          "
+                                        >
+                                          <button
+                                            mat-icon-button
+                                            color="undefine"
+                                            (click)="deleteFile(i)"
+                                            class="icon-display"
+                                          >
+                                            <mat-icon>delete</mat-icon>
+                                          </button>
+                                        </div>
+                                        <img
+                                          [src]="imgCarrousel[i]"
+                                          alt="camera"
+                                          style="width: 150px; height: 110px"
+                                        />
+                                      </div>
+                                      <!-- <div style="width: 100%; height: 10%;">
+                                        <span>{{ i + 1 }}</span>
+
+                                      </div> -->
+                                    </div>
+                                    }
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel class="mt-2">
+                          <mat-expansion-panel-header class="mt-2">
+                            <mat-panel-title>
+                              {{ "CONTENT_DESCRIPTION" | translate }}
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <angular-editor
+                            [config]="config"
+                            formControlName="descripcion"
+                          >
+                          </angular-editor>
+                        </mat-expansion-panel>
+                        <mat-expansion-panel class="mt-2" style="z-index: 0">
+                          <mat-expansion-panel-header class="mt-2">
+                            <mat-panel-title>
+                              {{ "SECTIONS" | translate }}
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <div>
+                            <div class="mt-3">
+                              <mat-accordion
+                                cdkDropList
+                                #unassignedList="cdkDropList"
+                                style="z-index: 1"
+                                [cdkDropListData]="getArraySections(index)"
+                                *ngIf="getArraySections(index).length > 0"
+                                [cdkDropListLockAxis]="'y'"
+                                (cdkDropListDropped)="drop($event)"
+                                #accordion
+                              >
+                                <mat-expansion-panel
+                                  *ngFor="
+                                    let task of getArraySections(index);
+                                    let i = index
+                                  "
+                                  class="mt-2"
+                                  #panel
+                                  (afterExpand)="focusPanel(panel, index, i)"
+                                >
+                                  <mat-expansion-panel-header cdkDrag>
+                                    <mat-panel-title>
+                                      <div
+                                        class="col-md-12 col-12 row"
+                                        (click)="$event.stopPropagation()"
+                                        (keydown.Space)="
+                                          $event.stopImmediatePropagation()
+                                        "
+                                      >
+                                        <div
+                                          class="col-md-10 col-10 mt-2"
+                                          style="text-align: justify"
+                                        >
+                                          <mat-form-field
+                                            style="
+                                              margin-top: 15px;
+                                              border-bottom: 1px dotted black;
+                                            "
+                                          >
+                                            <input
+                                              type="text"
+                                              matInput
+                                              [formControl]="
+                                                getControlSections(
+                                                  index,
+                                                  i,
+                                                  'label'
+                                                )
+                                              "
+                                              [errorStateMatcher]="matcher"
+                                              placeholder="{{
+                                                'SECTIONS' | translate
+                                              }}"
+                                            />
+                                          </mat-form-field>
+                                          <!-- <mat-form-field [appearance]="'outline'">
+                                            <input matInput [formControl]="getControlSesiones(index, i, 'label')"  class="mt-2 mb-2" id="MatInput{{index}}-{{i}}" style="border: none; border-bottom: 1px dotted black;" (keyup)="changeEstado(index, i)" [errorStateMatcher]="matcher"/>
+                                          </mat-form-field> -->
+                                        </div>
+                                        <div
+                                          class="col-md-2 col-2"
+                                          style="
+                                            text-align: end;
+                                            margin-top: 21px;
+                                          "
+                                        >
+                                          <button
+                                            mat-icon-button
+                                            color="undefine"
+                                            (click)="deleteHandler(index, i)"
+                                          >
+                                            <mat-icon>delete_sweep</mat-icon>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </mat-panel-title>
+                                  </mat-expansion-panel-header>
+                                  <angular-editor
+                                    [formControl]="
+                                      getControlSections(index, i, 'content')
+                                    "
+                                    [config]="config"
+                                    (ngModelChange)="validarFormulario()"
+                                    #editorInput
+                                  ></angular-editor>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                            </div>
+                            <div class="col-12 mt-2" style="text-align: center">
+                              <button
+                                mat-mini-fab
+                                color="undefine"
+                                (click)="crearAcordeon(index)"
+                                [disabled]="formulario.invalid"
+                              >
+                                <mat-icon>add</mat-icon>
+                              </button>
+                            </div>
+                          </div>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+
+                      <div class="row col-12 mt-2">
+                        <div class="col-6">
+                          <ftx-button
+                            (eventClick)="regresar()"
+                            [buttonType]="'outline-secondary'"
+                            [content]="'CANCEL' | translate"
+                            [icon]="'backspace'"
+                          />
+                        </div>
+                        <div class="col-6">
+                          <ftx-button
+                            (eventClick)="guardar(index)"
+                            [buttonType]="'dark'"
+                            [disabled]="formulario.invalid"
+                            [content]="'SAVE' | translate"
+                            [icon]="'save'"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </mat-tab>
+              }
+            </mat-tab-group>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="mx-auto" *ngIf="loading">
+      <!-- <strong>Loading...</strong> -->
+      <div class="ml-auto" role="status" aria-hidden="true">
+        <app-ftx-spinner />
+      </div>
+    </div>
+  </div>
+</ftx-layout-page>
+<!-- Plantilla de la modal -->
+<ng-template #editar let-modal>
+  <div class="modal-header">
+    <div class="row col-12">
+      <div class="col-6">
+        <h1>{{ "SELECT_LANGUAGE" | translate }}</h1>
+      </div>
+      <div class="col-6" style="text-align: end">
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div style="width: 98%">
+      <ftx-select
+        [formGroup]="companyForm"
+        [label]="'LANGUAGE' | translate"
+        [elements]="tipoIdioma"
+        [controlName]="'idioma'"
+      />
+    </div>
+    <div>
+      <div class="col-12 text-center mt-2" style="height: 70px">
+        <ftx-button
+          [content]="'CHOOSE' | translate"
+          (click)="crear()"
+          [buttonType]="'dark'"
+          [icon]="'save'"
+        />
+      </div>
+    </div>
+  </div>
+</ng-template>

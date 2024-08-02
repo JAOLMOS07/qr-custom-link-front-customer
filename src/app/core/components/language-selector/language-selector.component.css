@@ -1,0 +1,46 @@
+.language-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.language-icon {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.language-dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  z-index: 1000;
+  margin-top: 8px; /* Espacio entre el icono y el dropdown */
+  right: 0; /* Alinear el dropdown con el borde derecho del icono */
+  min-width: 120px; /* Ancho mínimo para el dropdown */
+  white-space: nowrap; /* Evitar el corte de texto */
+}
+
+.language-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.language-dropdown li {
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.language-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+
+.language-dropdown .checkmark {
+  margin-left: 10px;
+}

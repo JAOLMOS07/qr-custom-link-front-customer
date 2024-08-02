@@ -1,0 +1,26 @@
+<div
+  #toastElement
+  class="toast fade toast-width mt-2"
+  [ngClass]="type"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="toast-header">
+    <div class="d-flex me-auto align-items-center">
+      <strong [ngClass]="type" class="me-auto"
+        ><ftx-icon [icon]="icon"
+      /></strong>
+    </div>
+
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="hide()"
+    ></button>
+  </div>
+  <div class="toast-body row">
+    <p class="col-12">{{ message }}</p>
+  </div>
+</div>

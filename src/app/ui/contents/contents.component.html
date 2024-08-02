@@ -1,0 +1,43 @@
+<ftx-layout-page [title]="'CONTENTS' | translate">
+  <div>
+    <div class="col-12 col-md-10 mx-auto mt-2">
+      <ftx-card>
+        <div card-header></div>
+        <div card-content>
+          <div class="row mt-2">
+            <div class="col-sm-9 col-8">
+              <ftx-input
+                [viewLabel]="false"
+                [placeholder]="'SEARCH_BY_NAME' | translate"
+                [formGroup]="formControl"
+                [controlName]="'tag'"
+                (searchEvent)="handleSearchEvent($event)"
+              />
+            </div>
+            <div
+              class="col-sm-3 col-4 text-center d-flex justify-content-end align-items-center"
+            >
+              <ftx-button
+                [positionIcon]="'left'"
+                [icon]="'add_circle'"
+                [buttonType]="'dark'"
+                [content]="'CREATE' | translate"
+                [routerLink]="[MODULES.CONTENTS.NEW_CONTENT]"
+              />
+            </div>
+          </div>
+          <div class="row" *ngIf="!loading">
+            <app-content-list></app-content-list>
+          </div>
+        </div>
+      </ftx-card>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="mx-auto" *ngIf="loading">
+      <div class="ml-auto" role="status" aria-hidden="true">
+        <app-ftx-spinner />
+      </div>
+    </div>
+  </div>
+</ftx-layout-page>

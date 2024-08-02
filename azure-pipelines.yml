@@ -1,0 +1,211 @@
+trigger:
+  - dev
+  - uat
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: global
+
+stages:
+  - stage: Build_Dev
+    displayName: Build to Dev
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/dev')
+    jobs:
+      - job: build_dev
+        displayName: Build Dev
+        steps:
+          - script: |
+              chmod ug+x ./setup_env.sh
+              ./setup_env.sh
+            displayName: Setup ENV
+
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.x'
+            displayName: Install Node
+
+          - task: Npm@1
+            inputs:
+              command: 'install'
+            displayName: Run NPM Install
+
+          - task: Npm@1
+            inputs:
+              command: custom
+              customCommand: 'run build-dev'
+            displayName: Build Assets
+
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: './dist/customer/browser'
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/customer'
+            displayName: Package
+
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)'
+              artifact: 'drop'
+              publishLocation: 'pipeline'
+            displayName: Publish
+
+  - stage: Build_UAT
+    displayName: Build to UAT
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/uat')
+    jobs:
+      - job: build_uat
+        displayName: Build UAT
+        steps:
+          - script: |
+              chmod ug+x ./setup_env.sh
+              ./setup_env.sh
+            displayName: Setup ENV
+        
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '20.x'
+            displayName: Install Node
+        
+          - task: Npm@1
+            inputs:
+              command: 'install'
+            displayName: Run NPM Install
+        
+          - task: Npm@1
+            inputs:
+              command: custom
+              customCommand: 'run build-uat'
+            displayName: Build Assets
+        
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: './dist/customer/browser'
+              Contents: '**'
+              TargetFolder: '$(Build.ArtifactStagingDirectory)/customer'
+            displayName: Package
+        
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)'
+              artifact: 'drop'
+              publishLocation: 'pipeline'
+            displayName: Publish
+  
+  # - stage: Build_Prod
+  #   displayName: Build to Prod
+  #   condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
+  #   jobs:
+  #     - job: build_prod
+  #       displayName: Build Prod
+  #       steps:
+  #         - script: |
+  #             chmod ug+x ./setup_env.sh
+  #             ./setup_env.sh
+  #           displayName: Setup ENV
+                
+  #         - task: NodeTool@0
+  #           inputs:
+  #             versionSpec: '20.x'
+  #           displayName: Install Node
+                
+  #         - task: Npm@1
+  #           inputs:
+  #             command: 'install'
+  #           displayName: Run NPM Install
+                
+  #         - task: Npm@1
+  #           inputs:
+  #             command: custom
+  #             customCommand: 'run build-prod'
+  #           displayName: Build Assets
+                
+  #         - task: CopyFiles@2
+  #           inputs:
+  #             SourceFolder: './dist/customer/browser'
+  #             Contents: '**'
+  #             TargetFolder: '$(Build.ArtifactStagingDirectory)/customer'
+  #           displayName: Package
+                
+  #         - task: PublishPipelineArtifact@1
+  #           inputs:
+  #             targetPath: '$(Build.ArtifactStagingDirectory)'
+  #             artifact: 'drop'
+  #             publishLocation: 'pipeline'
+  #           displayName: Publish
+
+  - stage: DeployDev
+    displayName: Deploy to Dev
+    dependsOn: Build_Dev
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/dev')
+    jobs:
+      - job: deploy_dev
+        displayName: Deploy to Dev
+        steps:
+          - checkout: none
+          - download: none
+
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifact: drop
+            displayName: Download Artifact
+
+          - task: AzureStaticWebApp@0
+            displayName: Publish Artifact
+            inputs:
+              app_location: customer
+              skip_app_build: true
+              config_file_location: customer/assets
+              azure_static_web_apps_api_token: $(dev_front_customer_deploy_token)
+              workingDirectory: $(Pipeline.Workspace)
+
+  - stage: DeployUAT
+    displayName: Deploy to UAT
+    dependsOn: Build_UAT
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/uat')
+    jobs:
+      - job: deploy_uat
+        displayName: Deploy to UAT
+        steps:
+          - checkout: none
+          - download: none
+
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifact: drop
+            displayName: Download Artifact
+
+          - task: AzureStaticWebApp@0
+            displayName: Publish Artifact
+            inputs:
+              app_location: customer
+              skip_app_build: true
+              config_file_location: customer/assets
+              azure_static_web_apps_api_token: $(uat_front_customer_deploy_token)
+              workingDirectory: $(Pipeline.Workspace)
+
+  # - stage: DeployProd
+  #   dependsOn: Build_Prod
+  #   condition: eq(variables['Build.SourceBranchName'], 'main'))
+  #   jobs:
+  #     - job: deploy_prod
+  #       displayName: Deploy to Prod
+  #       steps:
+  #         - checkout: none
+  #         - download: none
+
+  #         - task: DownloadPipelineArtifact@2
+  #           inputs:
+  #             artifact: drop
+  #           displayName: Download Artifact
+
+  #         - task: AzureStaticWebApp@0
+  #           displayName: Publish Artifact
+  #           inputs:
+  #             app_location: customer
+  #             skip_app_build: true
+  #             config_file_location: customer/assets
+  #             azure_static_web_apps_api_token: $(prod_front_customer_deploy_token)
+  #             workingDirectory: $(Pipeline.Workspace)

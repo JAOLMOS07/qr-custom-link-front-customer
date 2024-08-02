@@ -1,0 +1,94 @@
+.app-container {
+  height: 85vh;
+}
+.app-sidenav-content {
+  /* display: flex; */
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  width: 99%;
+  padding: 20px;
+}
+.app-sidenav {
+   user-select: none;
+   background-color: rgba(57,62,69,1);
+}
+
+.full-width {
+  width: 100%;
+}
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+
+.profile_icon{
+  cursor: pointer;
+}
+.mat-toolbar-row, .mat-toolbar-single-row{
+  padding: 0px;
+}
+
+.headerTool{
+  height: 100%;
+  width: 99.7%
+}
+
+.rounded-circle{
+  width: 52px;
+  height: 52px
+}
+
+.rounded-circle-div{
+  margin-top: 6px;
+  width: 28;
+  height: 34
+}
+
+
+.img-menu{
+  width: 34px;
+  height: 34px;
+}
+
+.name-menu{
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.mat-toolbar{
+  height: auto;
+}
+
+.img_ico{
+ margin-top: 16px;
+}
+
+.icon_logo{
+  width: 80px !important;
+}
+
+.w-100{
+  width: 100%;
+}
+
+.custom-input {
+  border: 1px solid #ced4da; /* Establece un borde personalizado */
+  border-radius: 20px; /* Ajusta el radio de borde para hacerlo ovalado */
+  padding: 8px 12px; /* Ajusta el relleno según sea necesario */
+  /* Añade cualquier otro estilo personalizado que desees */
+}

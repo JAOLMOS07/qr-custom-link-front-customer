@@ -1,0 +1,22 @@
+@if(!isLoading) { @if(!contents || contents.length === 0){
+<ftx-empty></ftx-empty>
+}@else{
+
+<div class="col-12 mx-auto mt-4">
+  <ul class="list-group">
+    @for (content of contents; track $index) {
+    <app-content-item [content]="content"></app-content-item>
+    }
+  </ul>
+</div>
+<ftx-paginator
+  [length]="totalItems"
+  [pageSize]="itemsPerPage"
+  [pageIndex]="currentPage - 1"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onPageChange($event)"
+></ftx-paginator>
+
+} }@else{
+<app-ftx-spinner />
+}

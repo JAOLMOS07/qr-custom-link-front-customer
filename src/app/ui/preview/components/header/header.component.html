@@ -1,0 +1,14 @@
+<header class="header">
+    <nav class="nav">
+      <a class="navbar-brand2">
+        <img class="icon-img" [src]="logoUrl" alt="logo">
+        <!-- <img class="icon-img" src="https://assets.website-files.com/61f2b3aaf6625054e9ed370b/61f30101854c986b1d330110_LogoFinotex.svg" alt="logo"> -->
+      </a>
+      <a class="navbar-brand">
+        <!-- <img class="icon-img" [src]="logoUrl" alt="logo"> -->
+      </a>
+      <span class="navbar-brand pointer" >
+        <img class="icon-img" (click)="changeLanguage()" [src]="getCurrentLanguage()" alt="logo">
+      </span>
+    </nav>
+  </header>

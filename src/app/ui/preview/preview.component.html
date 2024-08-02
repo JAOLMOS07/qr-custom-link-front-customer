@@ -1,0 +1,28 @@
+<ftx-dialog [componet]="true">
+  <div content class="col-12" style="margin: 0 auto; padding: 0px !important">
+    @if(!isLoading){
+    <div>
+      <app-header
+        [languaje]="this.infoProduct['languages']"
+        [logoUrl]="this.infoProduct['logo']"
+        (eventChangeLanguage)="changeLanguage($event)"
+      ></app-header>
+      <section class="content">
+        <app-detail-product
+          [photos]="this.infoProduct['carousel']"
+          [data]="title"
+        ></app-detail-product>
+
+        <app-sesions [datas]="this.contenido"></app-sesions>
+      </section>
+    </div>
+    }@else{
+    <div
+      class="d-flex center-cont p-5 justify-content-center align-items-center"
+    >
+      <app-ftx-spinner />
+    </div>
+
+    }
+  </div>
+</ftx-dialog>
